@@ -24,8 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 } */
+
+
 /*=============== GOOGLE FONTS ===============*/
 @import url("https://fonts.googleapis.com/css2?family=Jolly+Lodger&family=Montserrat:wght@100..900&display=swap");
+
 
 /*=============== VARIABLES CSS ===============*/
 :root {
@@ -382,3 +385,4 @@ img {
     align-content: center;
   }
 }
+

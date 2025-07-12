@@ -1,40 +1,42 @@
 'use client';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Atropos from 'atropos';
+import Link from 'next/link'
 
 export default function Home() {
 
   /*=============== 顯示菜單  ===============*/
-  useEffect(() => {
-    const navMenu = document.getElementById('nav-menu');
-    const navToggle = document.getElementById('nav-toggle');
-    const navClose = document.getElementById('nav-close');
+  const [toggle, setToggle] = useState(false);
+  // useEffect(() => {
+  //   const navMenu = document.getElementById('nav-menu');
+  //   const navToggle = document.getElementById('nav-toggle');
+  //   const navClose = document.getElementById('nav-close');
 
-    function showMenu() {
-      navMenu?.classList.add('show-menu');
-    }
-    function hideMenu() {
-      navMenu?.classList.remove('show-menu');
-    }
-    // 當點擊「開啟選單」按鈕時，增加 navMenu 的 class "show-menu"
-    if (navToggle && navMenu) {
-      navToggle.addEventListener('click', showMenu);
-    }
-    // 當點擊「關閉選單」按鈕時，移除 navMenu 的 class "show-menu"
-    if (navClose && navMenu) {
-      navClose.addEventListener('click', hideMenu);
-    }
+  //   function showMenu() {
+  //     navMenu?.classList.add('show-menu');
+  //   }
+  //   function hideMenu() {
+  //     navMenu?.classList.remove('show-menu');
+  //   }
+  //   // 當點擊「開啟選單」按鈕時，增加 navMenu 的 class "show-menu"
+  //   if (navToggle && navMenu) {
+  //     navToggle.addEventListener('click', showMenu);
+  //   }
+  //   // 當點擊「關閉選單」按鈕時，移除 navMenu 的 class "show-menu"
+  //   if (navClose && navMenu) {
+  //     navClose.addEventListener('click', hideMenu);
+  //   }
 
-    // 在元件卸載時，清除上述加的事件監聽器，避免記憶體洩漏
-    return () => {
-      if (navToggle && navMenu) {
-        navToggle.removeEventListener('click', showMenu);
-      }
-      if (navClose && navMenu) {
-        navClose.removeEventListener('click', hideMenu);
-      }
-    };
-  }, []);
+  //   // 在元件卸載時，清除上述加的事件監聽器，避免記憶體洩漏
+  //   return () => {
+  //     if (navToggle && navMenu) {
+  //       navToggle.removeEventListener('click', showMenu);
+  //     }
+  //     if (navClose && navMenu) {
+  //       navClose.removeEventListener('click', hideMenu);
+  //     }
+  //   };
+  // }, []);
 
   /*=============== 移除菜單 手機 ===============*/
   useEffect(() => {
@@ -92,14 +94,16 @@ export default function Home() {
       <header className="header" id="header">
         <nav className="nav contioner">
           <a href="#" className="nav__logo">Halloween</a>
-          <div className="nav__menu" id="nav-menu">
+          <div className={`nav__menu ${toggle ? 'show-menu' : ''}`} id="nav-menu">
             <ul className="nav__list">
               <li>
                 <a href="#" className="nav__link">Home</a>
               </li>
 
               <li>
-                <a href="#" className="nav__link">Events</a>
+                <Link href="/restaurant" className="nav__link">
+                  restaurant
+                </Link>
               </li>
 
               <li>
@@ -111,12 +115,12 @@ export default function Home() {
               </li>
             </ul>
             {/* <!-- Close button */}
-            <div className="nav__close" id="nav-close">
+            <div className="nav__close cursor-pointer" onClick={() => setToggle(false)}>
               <i className="ri-close-large-line"></i>
             </div>
           </div>
           {/* <!-- Toggle button */}
-          <div className="nav__toggle" id="nav-toggle">
+          <div className="nav__toggle cursor-pointer" onClick={() => setToggle(true)}>
             <i className="ri-apps-2-fill"></i>
           </div>
         </nav>
@@ -141,12 +145,21 @@ export default function Home() {
                 搗蛋就送 Pumpkins、candy</a>
             </div>
             {/* 使用Atropos.js  */}
-            <div className="home__images atropos ">
+            <div className="home__images ">
               <div className="atropos-scale">
                 <div className="atropos-rotate">
-                  <div className="atropos-inner">
-                    <img src="/assets/img/pumpkin-1.png" alt="" data-atropos-offset="10" className="home__img-1" />
-                    <img src="/assets/img/pumpkin-2.png" alt="" data-atropos-offset="10" className="home__img-2" />
+                  <div className="atropos-inner ">
+                    <img src="/assets/img/pumpkin-1.png" alt=""
+                      // data-atropos-offset="10" 
+                      className="home__img-1" />
+                    <img src="/assets/img/pumpkin-2.png" alt=""
+                      //  data-atropos-offset="10"
+                      className="home__img-2 " />
+
+                    {/* 這段文字會完全覆蓋在圖片上、置中 */}
+                    <span className="absolute top-0 left-0 right-0 bottom-0 r text-2xl font-bold text-white">
+                      Halloween
+                    </span>
                   </div>
                 </div>
               </div>
